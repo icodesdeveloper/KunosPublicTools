@@ -2,4 +2,5 @@
 $decodedString = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("d2luKnJpdGU="))
 
 # Run the decoded string as a command
-Invoke-Command -ScriptBlock $decodedString
+# Invoke-Command -ScriptBlock $decodedString
+echo $decodedString
