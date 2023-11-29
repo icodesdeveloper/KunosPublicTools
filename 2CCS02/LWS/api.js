@@ -30,7 +30,7 @@ let username = 'Not loaded';
 app.get('/user', (req, res) => {
     dbm2.findByPk(1).then((user) => {
         username = user.name;
-        res.json({ user: username });
+        res.json({ name: username });
     }).catch((error) => {
         console.error('Unable to find user: ', error);
         res.status(500).json({ error: 'Internal Server Error' });
