@@ -1,9 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 //Import sequelize
 const { Sequelize, DataTypes } = require('sequelize');
 
 const app = express();
 const port = 3000;
+// Enable CORS
+app.use(cors());
 
 //Create a sequelize instance with a connection to a database
 const sequelize = new Sequelize('postgres://dbm2:dbm2@10.0.31.54:5432/dbm2');
@@ -27,10 +30,14 @@ let username = 'Not loaded';
 app.get('/user', (req, res) => {
     dbm2.findByPk(1).then((user) => {
         username = user.name;
-        res.json({ user:  username});
-    }).catch((error) => {console.error('Unable to find user: ', error);});
+        res.json({ user: username });
+    }).catch((error) => {
+        console.error('Unable to find user: ', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
 
-}); 
+
 app.get('/container', (req, res) => {
     res.json({ id: 'Kuno Claes' });
   });
