@@ -9,7 +9,7 @@ const port = 3000;
 app.use(cors());
 
 //Create a sequelize instance with a connection to a database
-const sequelize = new Sequelize('postgres://dbm2:dbm2@10.0.31.54:5432/dbm2');
+const sequelize = new Sequelize('postgres://dbm2:dbm2@postgres:5432/dbm2');
 sequelize.authenticate().then(() => {console.log('Connection has been established successfully.');}).catch((error) => {console.error('Unable to connect to the database: ', error);});
 //sequelize.createSchema('dbm2').then(() => { console.log('Schema created successfully'); }).catch((error) => { console.error('Error while creating schema: ', error);});
 
