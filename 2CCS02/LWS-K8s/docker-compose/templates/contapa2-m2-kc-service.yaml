@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: contapa2-m2-kc
+  name: contapa2-m2-kc
+spec:
+  ports:
+    - name: "8085"
+      port: 80
+      targetPort: 80
+  selector:
+    io.kompose.service: contapa2-m2-kc

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contapa2-m2-kc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contapa2-m2-kc
+  template:
+    metadata:
+      labels:
+        app: contapa2-m2-kc
+    spec:
+      containers:
+      - name: custom-apache
+        image: custom-apache:latest
+        ports:
+        - containerPort: 80

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: contapa2-m2-kc
+spec:
+  type: ClusterIP
+  ports:
+    - name: contapa2-m2-kc
+      port: 8085
+      targetPort: 80
+  externalIPs:
+  - 10.0.31.54
+  selector:
+    io.kompose.service: apache

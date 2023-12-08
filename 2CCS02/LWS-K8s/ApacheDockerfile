@@ -1,0 +1,7 @@
+FROM ubuntu
+RUN apt-get -y update
+RUN apt-get -y install apache2 wget
+RUN wget -O /var/www/html/index.html https://raw.githubusercontent.com/icodesdeveloper/KunosPublicTools/main/2CCS02/LWS-Page/index.html
+
+EXPOSE 80
+CMD ["apache2ctl", "-D", "FOREGROUND"]

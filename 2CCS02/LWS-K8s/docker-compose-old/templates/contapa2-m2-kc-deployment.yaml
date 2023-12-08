@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contapa2-m2-kc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: apache
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: apache
+    spec:
+      containers:
+        - image: kunocls/contapa2-m2-kc:main
+          name: contapa2-m2-kc
+          ports:
+            - containerPort: 80
+          resources: {}
+      hostname: contapa2-m2-kc-01
+      restartPolicy: Always
+status: {}

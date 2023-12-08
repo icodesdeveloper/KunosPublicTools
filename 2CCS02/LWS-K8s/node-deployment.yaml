@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contanode-m2-kc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contanode-m2-kc
+  template:
+    metadata:
+      labels:
+        app: contanode-m2-kc
+    spec:
+      containers:
+      - name: custom-node
+        image: custom-node:latest
+        ports:
+        - containerPort: 3000

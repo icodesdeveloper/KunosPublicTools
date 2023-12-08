@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  contapa2-m2-kc:
+    container_name: contapa2-m2-kc
+    hostname: contapa2-m2-kc-01
+    image: kunocls/contapa2-m2-kc:main
+    ports:
+      - "8085:80"
+    networks:
+      - lamp-network
+  contanode-m2-kc:
+    container_name: contnode-m2-kc
+    build:
+      context: ./
+      dockerfile: NodeDockerfile    
+    hostname: contnode-m2-kc-01
+    image: kunocls/contanode-m2-kc:main
+    ports:
+      - "3000:3000"
+    networks:
+      - lamp-network
+  postgres:
+    image: postgres:14-alpine
+    container_name: contpost-m2-kc
+    hostname: contpost-m2-kc-01
+    ports:
+      - 5432:5432
+    volumes:
+      - ./apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=dbm2
+      - POSTGRES_USER=dbm2
+      - POSTGRES_DB=dbm2
+    networks:
+      - lamp-network
+networks:
+  lamp-network:
