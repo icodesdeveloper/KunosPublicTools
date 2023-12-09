@@ -40,6 +40,15 @@
           // display user name
           document.getElementById("user").innerText = user;
         });
+
+        fetch("http://10.0.31.54:3000/container")
+        .then((res) => res.json())
+        .then((data) => {
+          // get user name
+          const hostname = data.hostname;
+          // display user name
+          document.getElementById("container").innerText = hostname;
+        });
     </script>
   </body>
 </html>

@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+var os = require("os");
+
+
 //Import sequelize
 const { Sequelize, DataTypes } = require('sequelize');
 
@@ -39,7 +42,7 @@ app.get('/user', (req, res) => {
 
 
 app.get('/container', (req, res) => {
-    res.json({ id: 'Kuno Claes' });
+    res.json({ hostname: os.hostname() });
   });
 
 
