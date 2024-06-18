@@ -18,7 +18,7 @@ echo "This script will perform the following actions:"
 echo "1. Create a user named 'bart'."
 echo "2. Modify sudoers files to grant specific permissions."
 echo "3. Create and modify files in the /root folder."
-echo "We strongly recommend to do this on an empty OS install!"
+echo "We strongly recommend to run this on an empty OS install!"
 echo ""
 echo "Press 'y' to accept and continue, or any other key to cancel."
 read -r -p "Do you accept these changes? (y/n): " response
