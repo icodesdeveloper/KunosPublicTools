@@ -26,6 +26,27 @@ if [[ "$response" != "y" ]]; then
     exit 1
 fi
 
+# Function to check if user exists
+user_exists() {
+    if id "$1" &>/dev/null; then
+        return 0  # User exists
+    else
+        return 1  # User does not exist
+    fi
+}
+
+
+# Check if user bart already exists
+if user_exists "bart"; then
+    read -r -p "User 'bart' already exists. Do you want to delete 'bart' and proceed? (y/n): " response
+    if [[ "$response" == "y" ]]; then
+        echo -n "Deleting user bart... "
+        sudo deluser bart --remove-home &>/dev/null && echo "Done!" || echo "Failed!"
+    else
+        echo "Script execution canceled."
+        exit 1
+    fi
+fi
 
 # Create User bart with password !SolveMe
 echo -n "Creating user bart... "
@@ -37,7 +58,7 @@ echo "bart:!SolveMe" | sudo chpasswd &>/dev/null && echo "Done!" || echo "Failed
 
 # Ensure bart is not in the sudo group
 echo -n "Ensuring bart is not in the sudo group... "
-sudo deluser bart sudo &>/dev/null && echo "Done!" || echo "Failed!"
+sudo deluser bart sudo &>/dev/null && echo "Done!" || echo "Done!"
 
 # Grant sudo permissions for nano command only
 echo -n "Granting sudo privileges for nano to bart... "
