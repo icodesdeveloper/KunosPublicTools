@@ -26,6 +26,9 @@ if [[ "$response" != "y" ]]; then
     exit 1
 fi
 
+
+
+
 # Function to check if user exists
 user_exists() {
     if id "$1" &>/dev/null; then
@@ -41,7 +44,7 @@ if user_exists "bart"; then
     read -r -p "User 'bart' already exists. Do you want to delete 'bart' and proceed? (y/n): " response
     if [[ "$response" == "y" ]]; then
         echo -n "Deleting user bart... "
-        sudo deluser bart --remove-home &>/dev/null && echo "Done!" || echo "Failed!"
+        sudo userdel bart -r &>/dev/null && echo "Done!" || echo "Done!"
     else
         echo "Script execution canceled."
         exit 1
