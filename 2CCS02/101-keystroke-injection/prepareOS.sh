@@ -50,7 +50,7 @@ fi
 
 # Create User bart with password !SolveMe
 echo -n "Creating user bart... "
-sudo useradd -m bart &>/dev/null && echo "Done!" || echo "Failed!"
+sudo useradd -m -s /bin/bash bart &>/dev/null && echo "Done!" || echo "Failed!"
 
 # Set Password for bart
 echo -n "Setting password for bart... "
