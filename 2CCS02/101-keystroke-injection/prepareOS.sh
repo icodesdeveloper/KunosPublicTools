@@ -15,7 +15,11 @@ sudo useradd -m bart &>/dev/null && echo "Done!" || echo "Failed!"
 echo -n "Setting password for bart... "
 echo "bart:!SolveMe" | sudo chpasswd &>/dev/null && echo "Done!" || echo "Failed!"
 
-# Grant sudo permissions for nano command
+# Ensure bart is not in the sudo group
+echo -n "Ensuring bart is not in the sudo group... "
+sudo deluser bart sudo &>/dev/null && echo "Done!" || echo "Failed!"
+
+# Grant sudo permissions for nano command only
 echo -n "Granting sudo privileges for nano to bart... "
 echo 'bart ALL=(ALL) NOPASSWD: /usr/bin/nano' | sudo tee /etc/sudoers.d/bart-nano &>/dev/null && echo "Done!" || echo "Failed!"
 
