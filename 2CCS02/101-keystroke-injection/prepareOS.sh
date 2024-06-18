@@ -3,9 +3,29 @@
 # Script Information
 echo "########################################"
 echo "# TryHackMe Attack Box Setup Script    #"
-echo "# by Gemini (Bard Large Language Model) #"
+echo "# Made with <3 by Hak69 (2023-2024)    #"
 echo "########################################"
 echo ""
+
+# Check for root permissions
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
+# Disclaimer
+echo "This script will perform the following actions:"
+echo "1. Create a user named 'bart'."
+echo "2. Modify sudoers files to grant specific permissions."
+echo "3. Create and modify files in the /root folder."
+echo "We strongly recommend to do this on an empty OS install!"
+echo ""
+echo "Press 'y' to accept and continue, or any other key to cancel."
+read -r -p "Do you accept these changes? (y/n): " response
+if [[ "$response" != "y" ]]; then
+    echo "Script execution canceled."
+    exit 1
+fi
 
 # Create User bart with password !SolveMe
 echo -n "Creating user bart... "
