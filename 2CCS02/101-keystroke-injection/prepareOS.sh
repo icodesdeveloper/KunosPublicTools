@@ -20,25 +20,12 @@ echo "2. Modify sudoers files to grant specific permissions."
 echo "3. Create and modify files in the /root folder."
 echo "We strongly recommend to run this on an empty OS install!"
 echo ""
-echo "Press 'y' to accept and continue, or any other key to cancel."
 read -r -p "Do you accept these changes? (y/n): " response
+if [[ "$response" != "y" ]]; then
+    echo "Script execution canceled."
+    exit 1
+fi
 
-# Wait for the user to press a key
-read -s -n 1 key
- 
-# Check which key was pressed
-case $key in
-    y|Y)
-        echo "Continuing..."
-        ;;
-    n|N)
-        echo "Exiting..."
-        exit 1
-        ;;
-    *)
-        echo "Invalid input. Please press 'y' or 'n'."
-        ;;
-esac
 
 # Create User bart with password !SolveMe
 echo -n "Creating user bart... "
