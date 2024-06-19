@@ -79,6 +79,18 @@ sudo apt -y update &>/dev/null && sudo apt install -y ncat &>/dev/null && echo "
 echo -n "Setting custom message in /etc/issue... "
 sudo wget -O /etc/issue https://raw.githubusercontent.com/icodesdeveloper/KunosPublicTools/main/2CCS02/101-keystroke-injection/issue &>/dev/null && echo "Done!" || echo "Failed!"
 
+# Create /root/nuclear.1 with specific content
+echo -n "Creating /root/nuclear.1... "
+echo -n "8cuFiGCf5a27fuTJ0uNaoCCZazC8zE5a" | sudo tee /root/nuclear.1 &>/dev/null && echo "Done!" || echo "Failed!"
+
+# Create /root/nuclear.2 with specific content
+echo -n "Creating /root/nuclear.2... "
+echo -n "GWgilWP5ceo7Lb057buvrULjRMgjiNpp" | sudo tee /root/nuclear.2 &>/dev/null && echo "Done!" || echo "Failed!"
+
+# Create /root/nuclear.master with specific content
+echo -n "Creating /root/nuclear.master... "
+echo -n "WRImYiSf9en1e8VaRbjBggJu8jcpaKsN" | sudo tee /root/nuclear.master &>/dev/null && echo "Done!" || echo "Failed!"
+
 echo ""
 echo "########################################"
 echo "# Script execution completed!         #"
