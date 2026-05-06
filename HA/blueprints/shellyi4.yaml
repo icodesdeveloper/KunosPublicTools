@@ -8,8 +8,6 @@ blueprint:
       description: Choose Shelly i4
       selector:
         device:
-          manufacturer: Shelly
-          model: SNSN-0024X
           multiple: false
     downb1:
       name: Down Button 1
