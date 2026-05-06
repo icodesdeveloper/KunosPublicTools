@@ -1,6 +1,7 @@
+#R1
 blueprint:
-  name: Shelly i4 Ultra-Fast Manual Handler
-  description: Optimized for speed. Long press triggers on "hold", single/double on "release".
+  name: Shelly i4 Ultra-Fast (Manual)
+  description: Separate Single/Double/Long actions with minimum latency.
   domain: automation
   input:
     button_sensor:
@@ -8,11 +9,6 @@ blueprint:
       selector:
         entity:
           domain: binary_sensor
-    click_counter:
-      name: Counter Helper
-      selector:
-        entity:
-          domain: counter
     single_click_action:
       name: Single Click Action
       default: []
@@ -29,7 +25,7 @@ blueprint:
       selector:
         action: {}
 
-mode: restart # This is critical for the "Double Click" speed
+mode: restart # Essential to catch the second click immediately
 
 trigger:
   - platform: state
@@ -37,46 +33,37 @@ trigger:
     to: "on"
 
 action:
-  - service: counter.increment
-    target:
-      entity_id: !input click_counter
-
-  # Check if they are HOLDING the button (Long Press)
+  # 1. Determine if this is a Long Press or a release
   - wait_for_trigger:
       - platform: state
         entity_id: !input button_sensor
         to: "off"
-    timeout: "00:00:00.600" # If held longer than 600ms, it's a long press
+    timeout: "00:00:00.500" # If held > 500ms, it's a long press
     continue_on_timeout: true
 
   - if:
-      # If the timeout hit and button is STILL pushed down
       - condition: state
         entity_id: !input button_sensor
         state: "on"
     then:
       - sequence: !input long_press_action
-      - service: counter.reset
-        target:
-          entity_id: !input click_counter
-      - stop: "Long press executed"
+      - stop: "Long press done"
 
-  # If they released it quickly, wait a tiny window for a second click
-  - delay:
-      milliseconds: 250 # The "Sweet Spot" for double clicking
+  # 2. It was released quickly. Now wait a TINY window for the second press.
+  - wait_for_trigger:
+      - platform: state
+        entity_id: !input button_sensor
+        to: "on"
+    timeout: "00:00:00.200" # 200ms window for the second click
+    continue_on_timeout: true
 
-  - choose:
-      - conditions:
-          - condition: state
-            entity_id: !input click_counter
-            state: "2"
-        sequence: !input double_click_action
-      - conditions:
-          - condition: state
-            entity_id: !input click_counter
-            state: "1"
-        sequence: !input single_click_action
-
-  - service: counter.reset
-    target:
-      entity_id: !input click_counter
+  - if:
+      # If the second click happened (sensor is back to 'on')
+      - condition: state
+        entity_id: !input button_sensor
+        state: "on"
+    then:
+      - sequence: !input double_click_action
+    else:
+      # If the window expired without a second click
+      - sequence: !input single_click_action
